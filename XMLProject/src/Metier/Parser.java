@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
 import Beans.Contact;
  
 public class Parser {
-	
+	//testCmmit
 	private static String filepath = "C:/Users/Christophe/Desktop/file.xml";
 
  
