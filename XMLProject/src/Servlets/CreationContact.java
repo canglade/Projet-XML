@@ -15,29 +15,29 @@ import Metier.Parser;
 public class CreationContact extends HttpServlet {
 	
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
-		
-		String nom = request.getParameter( "nomContact" );
-        String prenom = request.getParameter( "prenomContact" );
-        String email = request.getParameter( "emailContact" );
+	
+	   String nom = request.getParameter( "nomContact" );
+       String prenom = request.getParameter( "prenomContact" );
+       String email = request.getParameter( "emailContact" );
 
-        String message;
+       String message;
         
        if ( nom.trim().isEmpty() || prenom.trim().isEmpty() ) {
-            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires. <br> <a href=\"CreationContact.jsp\">Cliquez ici</a> pour accéder au formulaire de création d'un contact.";
-        } else {
-            message = "Contact créé avec succès !";
-        }
+           message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires. <br> <a href=\"CreationContact.jsp\">Cliquez ici</a> pour accéder au formulaire de création d'un contact.";
+       } else {
+           message = "Contact créé avec succès !";
+       }
        
-        Contact contact = new Contact(nom, prenom, email);
+       Contact contact = new Contact(nom, prenom, email);
         
-        Parser parser = new Parser();
+       Parser parser = new Parser();
         
-        parser.creerFichier();
-        parser.newContact(contact);
+       parser.creerFichier();
+       parser.newContact(contact);
         
-        Element e = parser.chercherContact("raoul");
-        System.out.println("test" + e.getAttribute("Nom"));
-        System.out.println("test" + e.getAttribute("Nom"));
+       Contact raoul = parser.chercherContact("raoul");
+       
+       
 		
 
         /* Ajout du bean et du message à l'objet requête */

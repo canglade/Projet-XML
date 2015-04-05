@@ -119,8 +119,8 @@ public class Parser {
 	  }
 	}
 	
-	public Element chercherContact(String theNom){
-		Element theContact = null;
+	public Contact chercherContact(String theNom){
+		Contact theContact = null;
 
 		try {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -128,10 +128,7 @@ public class Parser {
 			docBuilder = docFactory.newDocumentBuilder();
 			Document doc = docBuilder.parse(filepath);
 			
-			theContact = doc.getElementById("theNom");
-			//System.out.println(theContact.getElementsByTagName(theNom).item(0).getTextContent());
-			
-			/*Element rootElement = doc.getDocumentElement();
+			Element rootElement = doc.getDocumentElement();
 			
 			NodeList listContact = rootElement.getChildNodes();
 			
@@ -140,21 +137,20 @@ public class Parser {
 				String name = contact.getElementsByTagName("Nom").item(0).getTextContent();
 				
 				if(name.equals(theNom)){
-					theContact = contact;
+					theContact = new Contact(name, contact.getElementsByTagName("Prenom").item(0).getTextContent(), contact.getElementsByTagName("Email").item(0).getTextContent());
 				}
 				
-			}*/
+			}
 			
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
 		}
 		
-		//System.out.println(theContact.getAttribute("Nom"));
 		return theContact;
 	}
 	
-	public void modifierData(String theNom, String thePrenom, String theMail){
+	/*public void modifierData(String theNom, String thePrenom, String theMail){
 		Element contact = chercherContact(theNom);
 		
 		try {
@@ -174,5 +170,5 @@ public class Parser {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 }
