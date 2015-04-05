@@ -6,9 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.xml.sax.SAXException;
+import org.w3c.dom.Element;
 
 import Beans.Contact;
 import Metier.Parser;
@@ -36,7 +35,9 @@ public class CreationContact extends HttpServlet {
         parser.creerFichier();
         parser.newContact(contact);
         
-        parser.chercherNom("raoul");
+        Element e = parser.chercherContact("raoul");
+        System.out.println("test" + e.getAttribute("Nom"));
+        System.out.println("test" + e.getAttribute("Nom"));
 		
 
         /* Ajout du bean et du message à l'objet requête */

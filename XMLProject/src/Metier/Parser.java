@@ -119,8 +119,8 @@ public class Parser {
 	  }
 	}
 	
-	public String chercherNom(String nom){
-		String theNom = null;
+	public Element chercherContact(String theNom){
+		Element theContact = null;
 
 		try {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -128,7 +128,10 @@ public class Parser {
 			docBuilder = docFactory.newDocumentBuilder();
 			Document doc = docBuilder.parse(filepath);
 			
-			Element rootElement = doc.getDocumentElement();
+			theContact = doc.getElementById("theNom");
+			//System.out.println(theContact.getElementsByTagName(theNom).item(0).getTextContent());
+			
+			/*Element rootElement = doc.getDocumentElement();
 			
 			NodeList listContact = rootElement.getChildNodes();
 			
@@ -136,18 +139,40 @@ public class Parser {
 				Element contact = (Element) listContact.item(i);
 				String name = contact.getElementsByTagName("Nom").item(0).getTextContent();
 				
-				if(name.equals(nom)){
-					theNom = name;
+				if(name.equals(theNom)){
+					theContact = contact;
 				}
 				
-			}
+			}*/
 			
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println(theNom);
-		return theNom;
+		//System.out.println(theContact.getAttribute("Nom"));
+		return theContact;
+	}
+	
+	public void modifierData(String theNom, String thePrenom, String theMail){
+		Element contact = chercherContact(theNom);
+		
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder;
+			docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.parse(filepath);
+			
+			Element rootElement = doc.getDocumentElement();
+			doc.get
+			NodeList listContact = rootElement.getChildNodes();
+			
+			
+			
+			
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
