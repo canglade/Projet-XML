@@ -1,13 +1,12 @@
 package Servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.w3c.dom.Element;
 
 import Beans.Contact;
 import Metier.Parser;
@@ -35,17 +34,34 @@ public class CreationContact extends HttpServlet {
        parser.creerFichier();
        parser.newContact(contact);
         
-       Contact raoul = parser.chercherContact("raoul");
+       //Contact raoul = parser.chercherContact("raoul");
        
+       //System.out.println(raoul.getNomContact() + " " + raoul.getPrenomContact() + " " + raoul.getEmailContact());
        
-		
 
+       //parser.modifierData("raoul", "nouveauNom", "nouveauMail@hotmail.fr");
+	
+       
+       //raoul = parser.chercherContact("raoul");
+
+       //System.out.println(raoul.getNomContact() + " " + raoul.getPrenomContact() + " " + raoul.getEmailContact());
+       
+       ArrayList<Contact> T = parser.LireData();
+       ArrayList<String> noms = new ArrayList<String>();
         /* Ajout du bean et du message à l'objet requête */
-        request.setAttribute( "contact", contact );
-        request.setAttribute( "message", message );
+       
+       for(Contact c : T){
+    	   noms.add(c.getNomContact());
+       }
+       
+       
+       request.setAttribute( "contacts", noms );
+    	   
+        //request.setAttribute( "contact", contact );
+        //request.setAttribute( "message", message );
 
         /* Transmission à la page JSP en charge de l'affichage des données */
-        this.getServletContext().getRequestDispatcher( "/afficherContact.jsp" ).forward( request, response );
-       
+        //this.getServletContext().getRequestDispatcher( "/afficherContact.jsp" ).forward( request, response );
+       this.getServletContext().getRequestDispatcher( "/afficherContact.jsp" ).forward( request, response );
 	}
 }

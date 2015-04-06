@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -12,6 +13,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -150,8 +152,8 @@ public class Parser {
 		return theContact;
 	}
 	
-	/*public void modifierData(String theNom, String thePrenom, String theMail){
-		Element contact = chercherContact(theNom);
+	public void modifierData(String theNom, String thePrenom, String theMail){
+		
 		
 		try {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -160,15 +162,77 @@ public class Parser {
 			Document doc = docBuilder.parse(filepath);
 			
 			Element rootElement = doc.getDocumentElement();
-			doc.get
+			
 			NodeList listContact = rootElement.getChildNodes();
 			
-			
-			
-			
-		} catch (ParserConfigurationException | SAXException | IOException e) {
+			for(int i =0; i < listContact.getLength();i++){
+				Element contact = (Element) listContact.item(i);
+				String name = contact.getElementsByTagName("Nom").item(0).getTextContent();
+				
+				if(name.equals(theNom)){
+					contact.setAttribute("Prenom", thePrenom);
+					contact.setAttribute("Email", theMail);
+
+				}	
+			}	
+		} catch (ParserConfigurationException | SAXException | IOException | TransformerFactoryConfigurationError e) {
 			e.printStackTrace();
 		}
 		
-	}*/
+	}
+	
+	
+	public ArrayList<Contact> LireData(){
+		        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();   	
+		        ArrayList<Contact> TableContacts = new ArrayList<Contact>();
+		        try {
+		        final DocumentBuilder builder = factory.newDocumentBuilder();
+				final Document document= builder.parse(new File(filepath));
+				final Element racine = document.getDocumentElement();
+				
+			    //élément racine
+			    System.out.println("\n*************RACINE************");
+			    System.out.println(racine.getNodeName());
+				
+			    //Personnes
+			    final NodeList racineNoeuds = racine.getChildNodes();
+			    final int nbRacineNoeuds = racineNoeuds.getLength();
+					
+			    for (int i = 0; i<nbRacineNoeuds; i++) {
+			        if(racineNoeuds.item(i).getNodeType() == Node.ELEMENT_NODE) {
+			            final Element personne = (Element) racineNoeuds.item(i);
+					
+			    	    /*
+				     * Etape 6 : récupération du nom et du prénom
+				     */
+				    final Element nom = (Element) personne.getElementsByTagName("Nom").item(0);
+				    final Element prenom = (Element) personne.getElementsByTagName("Prenom").item(0);
+							
+				    //Affichage du nom et du prénom
+				    String n=nom.getTextContent();
+				    String p=prenom.getTextContent();
+				    
+				    System.out.println(nom);
+				    System.out.println(prenom);
+				    
+				    Contact c = new Contact(n, p, "mail");
+				    TableContacts.add(c);
+				
+			        }				
+			    }			
+		        }
+		        catch (final ParserConfigurationException e) {
+		            e.printStackTrace();
+		        }
+		        catch (final SAXException e) {
+		            e.printStackTrace();
+		        }
+		        catch (final IOException e) {
+		            e.printStackTrace();
+		        }		
+		        
+		        return TableContacts ;
+		    }
+		
+	
 }
