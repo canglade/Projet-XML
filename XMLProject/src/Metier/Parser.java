@@ -166,16 +166,37 @@ public class Parser {
 			NodeList listContact = rootElement.getChildNodes();
 			
 			for(int i =0; i < listContact.getLength();i++){
-				Element contact = (Element) listContact.item(i);
-				String name = contact.getElementsByTagName("Nom").item(0).getTextContent();
 				
+				Node child = listContact.item(i);
+				Element contact = (Element) child;
+				String name = contact.getElementsByTagName("Nom").item(0).getTextContent();
+			
 				if(name.equals(theNom)){
-					contact.setAttribute("Prenom", thePrenom);
-					contact.setAttribute("Email", theMail);
-
-				}	
+					System.out.println("Nom trouvé !");
+					NodeList listProp = child.getChildNodes();
+					
+					for(int j =0; j < listProp.getLength();j++){
+						Node prop = listProp.item(j);
+						
+						if(prop.getNodeName().equals("Prenom")){
+							prop.setTextContent(thePrenom);
+							System.out.println("Change le prenom");
+							
+						}else if(prop.getNodeName().equals("Email")){
+							prop.setTextContent(theMail);
+							System.out.println("Change le mail");
+						}
+					}
+				}
+				
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				DOMSource source = new DOMSource(doc);
+				StreamResult result = new StreamResult(new File(filepath));
+				transformer.transform(source, result);
+			
 			}	
-		} catch (ParserConfigurationException | SAXException | IOException | TransformerFactoryConfigurationError e) {
+		} catch (ParserConfigurationException | SAXException | IOException | TransformerFactoryConfigurationError | TransformerException e) {
 			e.printStackTrace();
 		}
 		

@@ -34,17 +34,17 @@ public class CreationContact extends HttpServlet {
        parser.creerFichier();
        parser.newContact(contact);
         
-       //Contact raoul = parser.chercherContact("raoul");
+       Contact raoul = parser.chercherContact("raoul");
        
-       //System.out.println(raoul.getNomContact() + " " + raoul.getPrenomContact() + " " + raoul.getEmailContact());
+       System.out.println(raoul.getNomContact() + " " + raoul.getPrenomContact() + " " + raoul.getEmailContact());
        
 
-       //parser.modifierData("raoul", "nouveauNom", "nouveauMail@hotmail.fr");
+       parser.modifierData("raoul", "nouveauNom", "nouveauMail@hotmail.fr");
 	
        
-       //raoul = parser.chercherContact("raoul");
+       Contact newRaoul = parser.chercherContact("raoul");
 
-       //System.out.println(raoul.getNomContact() + " " + raoul.getPrenomContact() + " " + raoul.getEmailContact());
+       System.out.println(newRaoul.getNomContact() + " " + newRaoul.getPrenomContact() + " " + newRaoul.getEmailContact());
        
        ArrayList<Contact> T = parser.LireData();
        ArrayList<String> noms = new ArrayList<String>();
