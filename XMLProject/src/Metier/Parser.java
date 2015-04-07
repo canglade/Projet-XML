@@ -76,7 +76,6 @@ public class Parser {
 	public void newContact(Contact c) throws FileNotFoundException {
  
 	  try {
-		
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder;
 		docBuilder = docFactory.newDocumentBuilder();
@@ -123,7 +122,6 @@ public class Parser {
 	
 	public Contact chercherContact(String theNom){
 		Contact theContact = null;
-
 		try {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder;
@@ -196,7 +194,10 @@ public class Parser {
 				transformer.transform(source, result);
 			
 			}	
-		} catch (ParserConfigurationException | SAXException | IOException | TransformerFactoryConfigurationError | TransformerException e) {
+		} catch (ParserConfigurationException | SAXException | IOException | TransformerFactoryConfigurationError | TransformerConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

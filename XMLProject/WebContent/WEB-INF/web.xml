@@ -13,4 +13,14 @@
 		<servlet-name>CreationContact</servlet-name>
 		<url-pattern>/CreationContact</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AfficherContacts</servlet-name>
+		<servlet-class>Servlets.AfficherContacts</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AfficherContacts</servlet-name>
+		<url-pattern>/AfficherContacts</url-pattern>
+	</servlet-mapping>
 </web-app>

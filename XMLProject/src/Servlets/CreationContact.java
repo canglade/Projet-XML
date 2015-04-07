@@ -16,6 +16,7 @@ public class CreationContact extends HttpServlet {
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 	
 	   String nom = request.getParameter( "nomContact" );
+	   System.out.println(nom);
        String prenom = request.getParameter( "prenomContact" );
        String email = request.getParameter( "emailContact" );
 
@@ -37,7 +38,7 @@ public class CreationContact extends HttpServlet {
        Contact raoul = parser.chercherContact("raoul");
        
        System.out.println(raoul.getNomContact() + " " + raoul.getPrenomContact() + " " + raoul.getEmailContact());
-       
+  
 
        parser.modifierData("raoul", "nouveauNom", "nouveauMail@hotmail.fr");
 	
@@ -46,22 +47,12 @@ public class CreationContact extends HttpServlet {
 
        System.out.println(newRaoul.getNomContact() + " " + newRaoul.getPrenomContact() + " " + newRaoul.getEmailContact());
        
-       ArrayList<Contact> T = parser.LireData();
-       ArrayList<String> noms = new ArrayList<String>();
-        /* Ajout du bean et du message à l'objet requête */
-       
-       for(Contact c : T){
-    	   noms.add(c.getNomContact());
-       }
-       
-       
-       request.setAttribute( "contacts", noms );
-    	   
-        //request.setAttribute( "contact", contact );
-        //request.setAttribute( "message", message );
+           	   
+        request.setAttribute( "contact", contact );
+        request.setAttribute( "message", message );
 
         /* Transmission à la page JSP en charge de l'affichage des données */
-        //this.getServletContext().getRequestDispatcher( "/afficherContact.jsp" ).forward( request, response );
-       this.getServletContext().getRequestDispatcher( "/afficherContact.jsp" ).forward( request, response );
+        this.getServletContext().getRequestDispatcher( "/afficherContact.jsp" ).forward( request, response );
+       
 	}
 }
